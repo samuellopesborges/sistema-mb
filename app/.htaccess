@@ -1,0 +1,6 @@
+<FilesMatch "\.(zip|exe)$">
+  SetEnvIf X-App-Auth "rL9GbDnXyyDHzlmO4F7TqgFcZ2OeBtcU" allow_download
+  Order Deny,Allow
+  Deny from all
+  Allow from env=allow_download
+</FilesMatch>

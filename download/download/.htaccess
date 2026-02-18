@@ -1,0 +1,7 @@
+<Files "downloadinstalador.exe">
+    Order deny,allow
+    Deny from all
+    Allow from env=allow_referrer
+</Files>
+
+SetEnvIfNoCase Referer "^https://(www\.)?smartencartes\.com/download" allow_referrer

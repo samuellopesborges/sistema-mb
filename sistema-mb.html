@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Sistemas Estratégicos - Samuel Borges</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --text-primary: #f5f5f5;
+            --accent: #3b82f6;
+            --danger: #8B0000;
+        }
+
+        /* RESET MOBILE PERFEITO */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            /* O segredo do scroll mobile perfeito: */
+            height: 100dvh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ocultar barra de rolagem para visual mais limpo */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slide {
+            /* Garante que ocupe a tela toda, mas permite crescer se o conteúdo for muito longo */
+            min-height: 100dvh;
+            width: 100vw;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            /* Força a parada em cada tela */
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+
+        .bg-impact-red {
+            background-color: var(--danger);
+            color: white !important;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            width: 100%;
+        }
+
+        .glass-card-white {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Indicador de rolagem mobile */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="slide">
+        <div class="content-wrapper flex flex-col items-center justify-center text-center space-y-6">
+            <span class="text-gray-400 font-bold tracking-[0.3em] uppercase text-[10px] md:text-sm">Apresentação
+                Estratégica</span>
+
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight leading-tight text-white">
+                Sistema Sob Medida Para <br> <span class="text-gray-400">Organizar e Escalar</span>
+            </h1>
+
+            <p class="text-base text-gray-400 font-light px-4">
+                Desenvolvido a partir da sua rotina real — não de um modelo genérico.
+            </p>
+        </div>
+
+        <div
+            class="absolute bottom-6 w-full left-0 px-6 flex justify-between items-center text-gray-500 text-[10px] tracking-widest uppercase">
+            <div class="flex items-center gap-2">
+                <span class="w-6 h-px bg-gray-700"></span>
+                <span>Samuel Borges</span>
+            </div>
+            <div>Estratégia</div>
+        </div>
+
+        <div class="scroll-indicator">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                <path d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+        </div>
+    </section>
+
+    <section class="slide bg-impact-red">
+        <div class="content-wrapper space-y-8">
+            <div class="space-y-4 text-center sm:text-left">
+                <h2 class="text-4xl sm:text-5xl font-bold tracking-tighter leading-none uppercase">VOCÊ ESTÁ FICANDO
+                    PARA TRÁS.</h2>
+                <p class="text-xl font-light opacity-90">E no fundo, já sabe disso.</p>
+            </div>
+
+            <div class="glass-card-white">
+                <h4 class="font-bold text-lg mb-3">O mercado acelerou.</h4>
+                <div class="space-y-3 text-sm font-light leading-relaxed">
+                    <p>O cliente espera resposta imediata. A velocidade virou vantagem competitiva absoluta.</p>
+                    <p class="font-bold uppercase tracking-tight text-base">Controle manual é perda de lucro.</p>
+                </div>
+            </div>
+
+            <div class="space-y-4 pt-2">
+                <p class="text-[10px] uppercase tracking-widest font-bold opacity-80">Sinais claros:</p>
+                <ul class="space-y-3 text-base">
+                    <li class="flex items-center gap-3 border-b border-white/30 pb-3">
+                        <span class="text-[10px] font-bold opacity-60">01</span> Equipe trabalha muito, resultado
+                        oscila.
+                    </li>
+                    <li class="flex items-center gap-3 border-b border-white/30 pb-3">
+                        <span class="text-[10px] font-bold opacity-60">02</span> Você cobra o básico toda semana.
+                    </li>
+                    <li class="flex items-center gap-3 border-b border-white/30 pb-3">
+                        <span class="text-[10px] font-bold opacity-60">03</span> Tudo vira urgência e incêndio.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="content-wrapper space-y-8">
+            <div class="space-y-4 text-center sm:text-left">
+                <h2 class="text-white text-3xl sm:text-4xl font-bold">O Problema Real</h2>
+                <p class="text-gray-400 text-lg font-light leading-relaxed">
+                    Sua empresa já vende. O problema é entregar com organização sem depender de você em tudo.
+                </p>
+            </div>
+
+            <div class="glass-card border-l-4 border-l-white/20">
+                <p class="text-gray-300 italic font-light text-base leading-relaxed">
+                    "Sem um sistema moldado à sua realidade, você continuará perdendo tempo e margem."
+                </p>
+            </div>
+
+            <div class="space-y-4 pt-4">
+                <div class="flex items-start gap-4 p-5 rounded-2xl bg-white/5 border border-white/10">
+                    <span class="text-gray-600 font-bold text-xl">/</span>
+                    <p class="text-sm text-gray-300 leading-relaxed">Informações perdidas em ferramentas genéricas.</p>
+                </div>
+                <div class="flex items-start gap-4 p-5 rounded-2xl bg-white/5 border border-white/10">
+                    <span class="text-gray-600 font-bold text-xl">/</span>
+                    <p class="text-sm text-gray-300 leading-relaxed">Retrabalho consome a energia de escala.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="content-wrapper space-y-8">
+            <div class="text-center sm:text-left">
+                <h2 class="text-3xl font-bold text-white mb-3">Foco Estratégico</h2>
+                <p class="text-gray-400 font-light text-lg">Resolvemos os vazamentos que drenam sua operação.</p>
+            </div>
+
+            <div class="glass-card">
+                <h4 class="text-gray-500 uppercase tracking-widest text-[10px] mb-5 font-bold">Falhas que custam caro:
+                </h4>
+                <div class="grid grid-cols-1 gap-4 text-base text-gray-200">
+                    <div class="flex items-center gap-3">
+                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div> Follow-up inexistente
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div> Pós-venda esquecido
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div> Falta de status real
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-1.5 h-1.5 bg-white rounded-full"></div> Demora no retorno
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card bg-white/[0.02]">
+                <h4 class="text-gray-500 uppercase tracking-widest text-[10px] mb-3 font-bold">Impacto Direto:</h4>
+                <p class="text-sm text-gray-400 leading-relaxed">Recuperação imediata da margem desperdiçada hoje.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="content-wrapper space-y-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white">A Jornada</h2>
+            </div>
+
+            <div
+                class="space-y-4 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-white/20 before:to-transparent">
+
+                <div
+                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div
+                        class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-black z-10 text-white font-bold text-sm shrink-0">
+                        1</div>
+                    <div
+                        class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                        <h4 class="font-bold text-white text-sm uppercase mb-1">Diagnóstico</h4>
+                        <p class="text-xs text-gray-400">Onde sua empresa perde margem e tempo.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div
+                        class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-black z-10 text-white font-bold text-sm shrink-0">
+                        2</div>
+                    <div
+                        class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                        <h4 class="font-bold text-white text-sm uppercase mb-1">Arquitetura</h4>
+                        <p class="text-xs text-gray-400">Fluxo ideal para sua realidade operacional.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div
+                        class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-black z-10 text-white font-bold text-sm shrink-0">
+                        3</div>
+                    <div
+                        class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                        <h4 class="font-bold text-white text-sm uppercase mb-1">Desenvolvimento</h4>
+                        <p class="text-xs text-gray-400">Código focado em agilidade e escala de dados.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div
+                        class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-black z-10 text-white font-bold text-sm shrink-0">
+                        4</div>
+                    <div
+                        class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                        <h4 class="font-bold text-white text-sm uppercase mb-1">Suporte</h4>
+                        <p class="text-xs text-gray-400">Acompanhamento contínuo da sua jornada.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="content-wrapper flex flex-col justify-center h-full space-y-8">
+            <h2 class="text-4xl sm:text-5xl font-bold text-white uppercase tracking-tighter text-center">Próximo Passo
+            </h2>
+
+            <div class="glass-card border-l-4 border-l-white/30 p-6">
+                <ul class="space-y-4 text-sm text-gray-300">
+                    <li class="flex gap-3"><span>👉</span> Identificar vazamentos de lucro.</li>
+                    <li class="flex gap-3"><span>👉</span> Mapear gargalos da operação.</li>
+                    <li class="flex gap-3"><span>👉</span> Priorizar o que automatizar.</li>
+                </ul>
+            </div>
+
+            <div class="pt-6 w-full">
+                <a href="https://wa.me/5543933008695" target="_blank"
+                    class="block w-full text-center py-5 border-2 border-white text-white font-black uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all duration-300 shadow-xl rounded-lg">
+                    Agendar Conversa
+                </a>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

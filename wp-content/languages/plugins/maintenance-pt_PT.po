@@ -1,0 +1,250 @@
+# Translation of Plugins - Maintenance - Stable (latest release) in Portuguese (Portugal)
+# This file is distributed under the same license as the Plugins - Maintenance - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-09-24 15:46:09+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: pt\n"
+"Project-Id-Version: Plugins - Maintenance - Stable (latest release)\n"
+
+#: includes/functions.php:208
+msgid "Support"
+msgstr "Suporte"
+
+#: load/functions.php:258
+msgid "Username"
+msgstr "Nome de utilizador"
+
+#: load/functions.php:259
+msgid "Password"
+msgstr "Senha"
+
+#: includes/functions.php:237
+msgid "Admin bar"
+msgstr "Barra de administração"
+
+#: includes/admin.php:88
+msgid "Save changes"
+msgstr "Guardar alterações"
+
+#: includes/functions.php:187
+msgid "General Settings"
+msgstr "Definições gerais"
+
+#: includes/functions.php:231
+msgid "Description"
+msgstr "Descrição"
+
+#: includes/functions.php:188
+msgid "Custom CSS"
+msgstr "CSS personalizado"
+
+#: includes/functions.php:237
+msgid "Show admin bar"
+msgstr "Mostrar barra de administração"
+
+#: includes/functions.php:238
+msgid "503"
+msgstr "503"
+
+#: includes/functions.php:238
+msgid "Service temporarily unavailable"
+msgstr "Serviço temporariamente indisponível"
+
+#: includes/functions.php:233
+msgid "Logo"
+msgstr "Logótipo"
+
+#: includes/functions.php:246
+msgid "Blur intensity"
+msgstr "Intensidade do desfoque"
+
+#: includes/functions.php:252
+msgid "Background blur"
+msgstr "Fundo desfocado"
+
+#: includes/functions.php:252
+msgid "Apply a blur"
+msgstr "Desfocar"
+
+#: includes/functions.php:340
+msgid "Background image"
+msgstr "Imagem de fundo"
+
+#: includes/functions.php:161
+msgid "Standard Fonts"
+msgstr "Fontes padrão"
+
+#: includes/functions.php:168
+msgid "Google Web Fonts"
+msgstr "Fontes web do Google"
+
+#: includes/functions.php:189
+msgid "Exclude pages"
+msgstr "Excluir páginas"
+
+#: includes/functions.php:195
+msgid "Pro version"
+msgstr "Versão Pro"
+
+#: includes/functions.php:202
+msgid "Fruitful Code projects"
+msgstr "Projectos da Fruitful Code"
+
+#: includes/functions.php:229
+msgid "Page title"
+msgstr "Título da página"
+
+#: includes/functions.php:232
+msgid "Footer Text"
+msgstr "Texto do rodapé"
+
+#: includes/functions.php:233
+msgid "Upload Logo"
+msgstr "Carregar logótipo"
+
+#: includes/functions.php:245
+msgid "Google Analytics ID"
+msgstr "ID do Google Analytics"
+
+#: includes/functions.php:245
+msgid "UA-XXXXX-X"
+msgstr "UA-XXXXX-X"
+
+#: includes/functions.php:253
+msgid "Login On / Off"
+msgstr "Início de sessão On / Off"
+
+#: includes/functions.php:265
+msgid "CSS Code"
+msgstr "Código CSS"
+
+#: includes/functions.php:279
+msgid "Select the page to be displayed:"
+msgstr "Seleccione a página a ser mostrada:"
+
+#: includes/functions.php:325
+msgid "Not available object."
+msgstr "Objecto não disponível."
+
+#: includes/functions.php:340
+msgid "Upload Background"
+msgstr "Carregar fundo"
+
+#: includes/functions.php:346
+msgid "Background color"
+msgstr "Cor de fundo"
+
+#: includes/functions.php:347
+msgid "Font color"
+msgstr "Cor da fonte"
+
+#: includes/functions.php:354
+msgid "Font family"
+msgstr "Família da fonte"
+
+#: includes/functions.php:362
+msgid "Have any questions?"
+msgstr "Tem algumas dúvidas?"
+
+#: includes/functions.php:374
+msgid "Premium WordPress themes"
+msgstr "Temas WordPress Premium"
+
+#: includes/functions.php:380
+msgid "ANAGLYPH - One page / Multi Page WordPress Theme"
+msgstr "ANAGLYPH - Tema WordPress para página única / múltiplas páginas"
+
+#: includes/functions.php:385
+msgid "Love.ly - Simple & Elegant WordPress theme"
+msgstr "Love.ly - Tema WordPress simples e elegante"
+
+#: includes/functions.php:391
+msgid "Zoner - Real Estate WordPress theme"
+msgstr "Zoner - Tema WordPress para imobiliária"
+
+#: includes/functions.php:404
+msgid "Extended functionality"
+msgstr "Funcionalidades adicionais"
+
+#: includes/functions.php:405
+msgid "Purchase <a href=\"http://codecanyon.net/item/maintenance-wordpress-plugin/2781350?ref=fruitfulcode\" target=\"_blank\">PRO</a> version  with extended functionality. %1$s If you like our plugin please <a target=\"_blank\" href=\"http://wordpress.org/support/view/plugin-reviews/maintenance?filter=5\">rate it</a>, <a title=\"leave feedbacks\" href=\"%2$s\" target=\"_blank\">leave feedbacks</a>."
+msgstr "Compre a versão <a href=\"http://codecanyon.net/item/maintenance-wordpress-plugin/2781350?ref=fruitfulcode\" target=\"_blank\">PRO</a> com funcionalidades adicionais. %1$s Se gostar do nosso plugin, por favor <a target=\"_blank\" href=\"http://wordpress.org/support/view/plugin-reviews/maintenance?filter=5\">avalie-o</a>, <a title=\"leave feedbacks\" href=\"%2$s\" target=\"_blank\">deixe feedbacks</a>."
+
+#: includes/functions.php:409
+msgid "Demo website"
+msgstr "Site de demonstração"
+
+#: includes/functions.php:604
+msgid "Website is under construction"
+msgstr "O site está em construção"
+
+#: includes/functions.php:605
+msgid "Maintenance mode is on"
+msgstr "Modo de manutenção activo"
+
+#: includes/functions.php:606
+msgid "Website will be available soon"
+msgstr "O site estará disponível em breve"
+
+#: load/functions.php:37
+msgid "Permission access denied!"
+msgstr "Acesso negado!"
+
+#: load/functions.php:45
+msgid "You entered your login are incorrect!"
+msgstr "O nome de utilizador que introduziu está incorrecto!"
+
+#: load/functions.php:49
+msgid "You entered your password are incorrect!"
+msgstr "A senha que introduziu está incorrecta!"
+
+#: load/functions.php:52
+msgid "You entered your login and password are incorrect!"
+msgstr "O nome de utilizador e senha que introduziu estão incorrectos!"
+
+#: load/functions.php:257
+msgid "User Login"
+msgstr "Iniciar sessão"
+
+#: load/functions.php:260
+msgid "Lost Password"
+msgstr "Senha perdida"
+
+#: load/functions.php:261
+msgid "Login"
+msgstr "Entrar"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/plugins/maintenance/"
+msgstr "http://wordpress.org/plugins/maintenance/"
+
+#. Description of the plugin/theme
+msgid "Take your website for maintenance away from public view. Use maintenance plugin if your website is in development or you need to change a few things, run an upgrade. Make it only accessible by login and password. Plugin has a options to add a logo, background, headline, message, colors, login, etc. Extended PRO with more features version is available for purchase."
+msgstr "Faça a manutenção do seu site longe da vista do público. Utilize um plugin de manutenção se o seu site estiver em desenvolvimento, se precisar de alterar algumas coisas, ou executar uma actualização. Torne-o acessível através de iniciar sessão com nome de utilizador e senha. O plugin tem opções para adicionar logótipo, fundo, cabeçalho, mensagem, cores, início de sessão, etc. Está disponível para compra uma versão Pro com recursos adicionais."
+
+#. Author of the plugin/theme
+msgid "fruitfulcode"
+msgstr "fruitfulcode"
+
+#. Author URI of the plugin/theme
+msgid "http://fruitfulcode.com"
+msgstr "http://fruitfulcode.com"
+
+#. #-#-#-#-#  tmp-maintenance.pot (Maintenance 2.5)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: includes/admin.php:73 includes/functions.php:539
+msgid "Maintenance"
+msgstr "Maintenance"
+
+#: includes/functions.php:230
+msgid "Headline"
+msgstr "Cabeçalho"
+
+#: includes/functions.php:363
+msgid "You may find answers to your questions at <a target=\"_blank\" href=\"http://wordpress.org/support/plugin/maintenance\">support forum</a><br>You may  <a target=\"_blank\" href=\"mailto:mail@fruitfulcode.com?subject=Maintenance plugin\">contact us</a> with customization requests and suggestions.<br> Please visit our website to learn about us and our services <a href=\"%1$s\" title=\"%2$s\">%2$s</a>"
+msgstr "Poderá encontrar respostas às suas dúvidas no <a target=\"_blank\" href=\"http://wordpress.org/support/plugin/maintenance\">fórum de suporte</a>.<br>Pode  <a target=\"_blank\" href=\"mailto:mail@fruitfulcode.com?subject=Maintenance plugin\">contactar-nos</a> para pedidos de personalização e sugestões.<br> Por favor, visite o nosso site para nos conhecer e aos nossos serviços em <a href=\"%1$s\" title=\"%2$s\">%2$s</a>."

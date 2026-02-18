@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Download — Smart Encartes</title>
+  <meta name="description" content="Baixe o instalador do Smart Encartes. Automação de encartes diretamente no Photoshop.">
+  <meta name="theme-color" content="#ff7a00">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230b0b0d'/%3E%3Cpath d='M25 30h50v10H25zm0 15h38v10H25zm0 15h50v10H25z' fill='%23ff7a00'/%3E%3C/svg%3E">
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --bg-2:#111215;
+      --bg-3:#16171b;
+      --text:#f5f6f7;
+      --muted:#c8c8cc;
+      --brand:#ff7a00;
+      --brand-2:#ff9c3b;
+      --ok:#21c55d;
+      --danger:#ef4444;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --max: 980px;
+      --logo-b64: url('https://smartencartes.com/site/logo.png');
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 75% -10%, rgba(255,122,0,.08), transparent 60%), var(--bg);
+      line-height:1.45
+    }
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(17,18,21,.9), rgba(17,18,21,.65));backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+    .brand .logo{width:36px;height:36px;border-radius:12px;background-image:var(--logo-b64);background-size:cover;background-position:center;box-shadow:var(--shadow)}
+    .hero{padding:56px 0 24px;position:relative;overflow:hidden}
+    .hero::before{
+      content:"";position:absolute;inset:-10% -10% -10% -10%;
+      background:
+        radial-gradient(40% 35% at 20% 20%, rgba(255,208,80,.12), transparent 60%),
+        radial-gradient(45% 35% at 80% 30%, rgba(255,180,0,.10), transparent 65%),
+        radial-gradient(35% 30% at 50% 85%, rgba(255,230,120,.06), transparent 70%);
+      filter:blur(50px);pointer-events:none;
+    }
+    h1{font-size:clamp(28px,5vw,48px);margin:8px 0 12px;line-height:1.05}
+    p.lead{font-size:clamp(16px,2.2vw,19px);color:var(--muted);max-width:62ch}
+    .panel{background:linear-gradient(180deg,var(--bg-3),var(--bg-2));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .cta{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#111;font-weight:800;padding:14px 18px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:var(--shadow)}
+    .cta:hover{transform:translateY(-1px)}
+    .cta-outline{border:1px solid rgba(255,255,255,.15);padding:12px 16px;border-radius:12px;text-decoration:none;color:var(--text)}
+    .grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+    @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+    .notice{font-size:13px;color:var(--muted)}
+    .checks{display:grid;gap:10px;margin-top:12px}
+    .check{display:flex;gap:10px;align-items:flex-start}
+    .check i{width:24px;height:24px;border-radius:999px;background:radial-gradient(120% 100% at 0% 0%, var(--brand), var(--brand-2));display:grid;place-items:center;font-style:normal;color:#111;font-weight:900}
+    footer{border-top:1px solid rgba(255,255,255,.06);background:var(--bg-2);padding:20px 0;color:var(--muted);margin-top:40px}
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,"Courier New",monospace;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap row">
+      <a class="brand" href="/" aria-label="Smart Encartes">
+        <span class="logo" aria-hidden="true"></span>
+        <strong>Smart Encartes</strong>
+      </a>
+      <a class="cta-outline" href="https://wa.me/5543933008695">WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap grid-2">
+        <div>
+          <div class="muted">Instalador oficial</div>
+          <h1>Baixe o Smart Encartes para Windows</h1>
+          <p class="lead">Instalação local. Integração nativa com Photoshop. Se precisar de ajuda, fale com o suporte.</p>
+
+          <div class="panel" role="region" aria-label="Baixar instalador">
+            <div class="actions">
+              <a id="btnDownload" class="cta" href="https://smartencartes.com/download/downloadinstalador.exe">⬇️ Baixar instalador (.exe)</a>
+              <a id="btnAlt" class="cta-outline" href="https://smartencartes.com/download/downloadinstalador.exe">Link alternativo</a>
+            </div>
+            <div class="checks">
+              <div class="check"><i>✓</i><div>Arquivo autoral, versão instaladora apenas instalada com chave de ativação.</div></div>
+              <div class="check"><i>✓</i><div>Compatível com Windows 10/11 e Photoshop para Windows.</div></div>
+              <div class="check"><i>✓</i><div>Se estiver no celular, faça o download no computador.</div></div>
+            </div>
+            <p class="notice">Problemas ao baixar? Clique com o botão direito no botão e selecione <span class="kbd">Salvar link como…</span></p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top:0">Requisitos mínimos</h3>
+          <ul>
+            <li>Windows 10 ou 11 (64‑bits)</li>
+            <li>Adobe Photoshop instalado</li>
+            <li>4GB RAM (8GB recomendado)</li>
+            <li>Conexão à internet para suporte e atualizações</li>
+          </ul>
+          <hr style="border:0;border-top:1px solid rgba(255,255,255,.12);margin:14px 0">
+          <h3>Instalação</h3>
+          <ol>
+            <li>Baixe o arquivo acima.</li>
+            <li>Execute o instalador e siga as instruções.</li>
+            <li>Abra o Photoshop e finalize a configuração guiada.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap row">
+      <div>© <span id="y"></span> Smart Encartes. Todos os direitos reservados.</div>
+      <div><a class="cta-outline" href="https://wa.me/5543933008695">WhatsApp</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Ano dinâmico
+    const y = document.getElementById('y'); if (y) y.textContent = new Date().getFullYear();
+
+    // UTM nos links se a página for acessada com parâmetros
+    const params = new URLSearchParams(location.search);
+    function withUTM(url){
+      if (!params.toString()) return url;
+      const hasQuery = url.includes('?');
+      return url + (hasQuery ? '&' : '?') + params.toString();
+    }
+    document.getElementById('btnDownload').href = withUTM(document.getElementById('btnDownload').href);
+    document.getElementById('btnAlt').href = withUTM(document.getElementById('btnAlt').href);
+  </script>
+</body>
+</html>
