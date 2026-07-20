@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Encartes - Novidades v1.0.3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-orange: #ff6600;
+            --text-main: #1a1a1a;
+            --text-muted: #666666;
+            --bg-light: #ffffff;
+            --border-color: #f0f0f0;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .feature-card {
+            border: 1px solid var(--border-color);
+            background: #fff;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--brand-orange);
+            transform: translateY(-2px);
+        }
+
+        .benefit-box {
+            background-color: #fafafa;
+            border-left: 3px solid var(--brand-orange);
+            padding: 1rem;
+            margin-top: auto;
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            background-color: #fff4ed;
+            color: var(--brand-orange);
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .evolution-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 2.5rem 0;
+        }
+
+        .evolution-item:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-note {
+            font-size: 0.75rem;
+            color: #994400;
+            background: #fff8f0;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 102, 0, 0.12);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
+        <span class="badge mb-4 inline-block">Novidades da versão 1.0.3</span>
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+            Smart <span class="text-[#ff6600]">Encartes</span>
+        </h1>
+        <p class="text-xl text-gray-500 font-light">
+            Uma atualização focada em velocidade, inteligência no reconhecimento de produtos e mais controle durante a seleção de imagens.
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pb-32">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+
+            <div class="feature-card p-8 rounded-2xl">
+                <h3 class="text-lg font-bold mb-4">1️⃣ Avançar e voltar no seletor de imagens</h3>
+                <p class="text-gray-600 text-sm mb-4">Agora você pode pular um produto e também voltar para o item anterior durante a escolha das imagens, sem precisar reiniciar o processo.</p>
+                <div class="benefit-box">
+                    <p class="font-bold text-[#ff6600] mb-1">Benefício:</p>
+                    <p class="text-gray-700">Mais liberdade para revisar escolhas, corrigir seleções e continuar o encarte sem interromper o fluxo.</p>
+                </div>
+            </div>
+
+            <div class="feature-card p-8 rounded-2xl">
+                <h3 class="text-lg font-bold mb-4">2️⃣ Reconhecimento automático de unidade</h3>
+                <p class="text-gray-600 text-sm mb-4">Produtos conhecidos não solicitam novamente o cadastro de unidade. Em itens como Nescau e outros produtos com gramatura, a unidade é identificada automaticamente.</p>
+                <div class="highlight-note">
+                    O sistema passa a interpretar informações como g, kg, ml e litros diretamente no nome do produto.
+                </div>
+                <div class="benefit-box">
+                    <p class="font-bold text-[#ff6600] mb-1">Benefício:</p>
+                    <p class="text-gray-700">Menos perguntas repetidas e menos cadastros manuais durante a produção.</p>
+                </div>
+            </div>
+
+            <div class="feature-card p-8 rounded-2xl">
+                <h3 class="text-lg font-bold mb-4">3️⃣ Novo banco de dados inteligente</h3>
+                <p class="text-gray-600 text-sm">O banco de produtos foi atualizado para um novo formato, mais rápido e preparado para reconhecer melhor marcas, gramaturas e relações entre os itens.</p>
+                <div class="benefit-box">
+                    <p class="font-bold text-[#ff6600] mb-1">Benefício:</p>
+                    <p class="text-gray-700">Consultas mais rápidas, sugestões mais precisas e uma base mais eficiente para evoluções futuras.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-xs font-black mb-12 text-center uppercase tracking-[0.3em] text-gray-400">🔥 Principais evoluções da atualização</h2>
+
+            <div class="space-y-4">
+
+                <div class="evolution-item">
+                    <div class="flex flex-col md:flex-row md:gap-12">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold">4️⃣ Sugestões por marca e gramatura</h4>
+                            <span class="text-xs font-mono text-gray-400 mt-2 block uppercase tracking-tighter">Seleção mais precisa</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div class="bg-gray-50 p-3 rounded border border-gray-100">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400">Antes</p>
+                                    <p class="text-sm text-gray-600">As sugestões dependiam principalmente do nome geral do produto.</p>
+                                </div>
+                                <div class="bg-orange-50 p-3 rounded border border-orange-100">
+                                    <p class="text-[10px] uppercase font-bold text-[#ff6600]">Agora</p>
+                                    <p class="text-sm text-gray-600">Marca e gramatura ajudam a localizar o item correto.</p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Ao analisar um produto, o sistema considera informações como fabricante, peso, volume e variações já registradas no banco.</p>
+                            <div class="benefit-box">
+                                <p class="font-bold text-[#ff6600]">Benefício:</p>
+                                <p>Menos imagens parecidas aparecendo por engano e mais chance de o produto certo ser sugerido logo de início.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evolution-item">
+                    <div class="flex flex-col md:flex-row md:gap-12">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold">5️⃣ Marcas registradas melhoram a identificação</h4>
+                            <span class="text-xs font-mono text-gray-400 mt-2 block uppercase tracking-tighter">Aprendizado da base</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-gray-600 mb-4">As marcas já cadastradas passam a ter um papel maior na identificação dos produtos e na organização das sugestões apresentadas.</p>
+                            <div class="bg-blue-50 p-4 rounded-lg mb-4 border border-blue-100">
+                                <p class="text-sm text-blue-800 font-semibold mb-1">Mais contexto para o sistema:</p>
+                                <p class="text-xs text-blue-600 italic">Quanto mais organizada estiver a base, melhor o sistema diferencia produtos com nomes semelhantes.</p>
+                            </div>
+                            <div class="benefit-box">
+                                <p class="font-bold text-[#ff6600]">Benefício:</p>
+                                <p>Uma seleção de imagens mais coerente, principalmente em produtos com vários sabores, tamanhos ou fabricantes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evolution-item">
+                    <div class="flex flex-col md:flex-row md:gap-12">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold">6️⃣ Modo Ultra Rápido</h4>
+                            <span class="text-xs font-mono text-gray-400 mt-2 block uppercase tracking-tighter">Processamento otimizado</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-gray-600 mb-4">Quando há uma composição com sobreposição, o sistema cria previamente uma única imagem pronta e envia apenas esse arquivo ao Photoshop.</p>
+                            <div class="highlight-note">
+                                Em vez de posicionar várias imagens separadamente dentro do PSD, a composição chega pronta para inserção.
+                            </div>
+                            <div class="benefit-box">
+                                <p class="font-bold text-[#ff6600]">Benefício:</p>
+                                <p>Menos operações dentro do Photoshop e maior velocidade nos encartes com múltiplas imagens.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evolution-item">
+                    <div class="flex flex-col md:flex-row md:gap-12">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold">7️⃣ Correção do preço com vírgula</h4>
+                            <span class="text-xs font-mono text-gray-400 mt-2 block uppercase tracking-tighter">Mais estabilidade</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-gray-600 mb-4">Foi removido o erro que, em determinadas situações, impedia a troca correta do preço por causa da leitura da vírgula nos valores.</p>
+                            <div class="benefit-box">
+                                <p class="font-bold text-[#ff6600]">Benefício:</p>
+                                <p>Os valores são atualizados corretamente, reduzindo falhas silenciosas e conferências manuais desnecessárias.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evolution-item">
+                    <div class="flex flex-col md:flex-row md:gap-12">
+                        <div class="md:w-1/3 mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold">8️⃣ Nova janela “Iniciar Encarte”</h4>
+                            <span class="text-xs font-mono text-gray-400 mt-2 block uppercase tracking-tighter">Experiência modernizada</span>
+                        </div>
+                        <div class="md:w-2/3">
+                            <p class="text-sm text-gray-600 mb-4">A tela de início do processo foi renovada com um visual mais moderno, informações mais claras e explicações melhores sobre cada etapa da criação do encarte.</p>
+                            <div class="benefit-box">
+                                <p class="font-bold text-[#ff6600]">Benefício:</p>
+                                <p>Mais segurança para iniciar o trabalho, entender as opções disponíveis e reduzir erros de configuração.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <section class="mt-24 p-12 bg-gray-50 rounded-3xl text-center border border-gray-100">
+            <h2 class="text-sm font-black uppercase tracking-[0.2em] text-gray-400 mb-8">O que muda na prática com a v1.0.3</h2>
+            <div class="flex flex-wrap justify-center gap-12">
+                <div class="flex flex-col items-center">
+                    <span class="text-[#ff6600] font-bold text-lg">✔</span>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase">Mais controle</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-[#ff6600] font-bold text-lg">✔</span>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase">Menos cadastros</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-[#ff6600] font-bold text-lg">✔</span>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase">Sugestões melhores</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-[#ff6600] font-bold text-lg">✔</span>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase">Processamento rápido</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
