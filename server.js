@@ -1,43 +1,52 @@
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Route for the main index page
+// Página principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Route for the download page
+// Página de download
 app.get('/download', (req, res) => {
     res.sendFile(path.join(__dirname, 'download', 'index.html'));
 });
 
-// Route for the systems page
-// Route for the systems page
+// Página de atualização
+app.get('/update', (req, res) => {
+    res.sendFile(path.join(__dirname, 'update', 'index.html'));
+});
+
+// Página de sistemas
 app.get('/sistemas', (req, res) => {
     res.sendFile(path.join(__dirname, 'sistema.html'));
 });
 
-// Route for the mobile systems page (plural)
+// Página de sistemas mobile
 app.get('/sistemas-mobile', (req, res) => {
     res.sendFile(path.join(__dirname, 'sistema-mb.html'));
 });
 
-// Fallback/Typo route for the mobile systems page (singular)
+// Rota alternativa
 app.get('/sistema-mobile', (req, res) => {
     res.sendFile(path.join(__dirname, 'sistema-mb.html'));
 });
 
-// Serve static files from the 'download' directory specifically for the .exe if needed locally
+// Arquivos estáticos da pasta download
 app.use('/download', express.static(path.join(__dirname, 'download')));
 
-// Serve static files from the 'site' directory (images, etc)
+// Arquivos estáticos da pasta update
+app.use('/update', express.static(path.join(__dirname, 'update')));
+
+// Arquivos estáticos da pasta site
 app.use('/site', express.static(path.join(__dirname, 'site')));
 
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
-    console.log(`Download page at http://localhost:${port}/download`);
+// Iniciar servidor
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Servidor rodando na porta ${port}`);
+    console.log(`Página inicial: http://localhost:${port}/`);
+    console.log(`Download: http://localhost:${port}/download`);
+    console.log(`Atualização: http://localhost:${port}/update`);
 });
