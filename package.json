@@ -1,11 +1,11 @@
 {
   "name": "public_html",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Site Smart Encartes com diagnostico e painel protegido de leads",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "node --check server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,8 @@
   "type": "commonjs",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

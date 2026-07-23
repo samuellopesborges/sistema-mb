@@ -1,4 +1,9 @@
 node_modules/
+.env
+.env.*
+data/leads.json
+data/*.tmp
+*.log
 *.zip
 error_log
 .htaccess.phpupgrader.*

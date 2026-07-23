@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Diagnóstico de Produtividade — Smart Encartes</title>
+  <meta name="description" content="Descubra quanto tempo sua operação de encartes pode economizar com automação no Photoshop." />
+  <meta name="theme-color" content="#ff7a00" />
+
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --bg-2: #fffaf4;
+      --bg-3: #ffffff;
+      --card: rgba(255, 255, 255, 0.96);
+      --text: #252525;
+      --muted: #6f6d69;
+      --brand: #ff7a00;
+      --brand-2: #ff9f43;
+      --success: #179c4b;
+      --danger: #d93939;
+      --border: rgba(53, 45, 37, 0.12);
+      --shadow: 0 24px 70px rgba(91, 64, 39, 0.14);
+      --radius: 20px;
+      --max: 820px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-height: 100%;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(700px 380px at 80% 0%, rgba(255, 122, 0, 0.13), transparent 65%),
+        radial-gradient(600px 340px at 10% 100%, rgba(255, 173, 85, 0.11), transparent 70%),
+        linear-gradient(180deg, #fffaf5 0%, var(--bg) 100%);
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.55;
+      background-image:
+        linear-gradient(rgba(90,72,54,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(90,72,54,.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    button, input, select { font: inherit; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 10px 28px rgba(255, 122, 0, 0.3);
+      color: #111;
+      font-size: 20px;
+      font-weight: 950;
+    }
+
+    .brand-name {
+      display: grid;
+      line-height: 1.05;
+    }
+
+    .brand-name strong { font-size: 16px; }
+    .brand-name span { color: var(--muted); font-size: 12px; margin-top: 5px; }
+
+    .secure {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .quiz-shell {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,250,244,.98));
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-shell::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -190px;
+      top: -210px;
+      background: radial-gradient(circle, rgba(255,122,0,.23), transparent 68%);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+
+    .progress-area {
+      position: relative;
+      z-index: 2;
+      padding: 22px 26px 0;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(63,52,42,.09);
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 20px rgba(255,122,0,.35);
+      transition: width .35s ease;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: 520px;
+      padding: 36px 34px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step {
+      display: none;
+      animation: stepIn .35s ease both;
+    }
+
+    .step.active { display: block; }
+
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      color: var(--brand-2);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .11em;
+      margin-bottom: 12px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+
+    h1 { font-size: clamp(31px, 6vw, 52px); }
+    h2 { font-size: clamp(25px, 4.8vw, 38px); max-width: 680px; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .description {
+      max-width: 650px;
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: clamp(15px, 2.5vw, 18px);
+    }
+
+    .intro-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 28px 0 4px;
+    }
+
+    .intro-point {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .intro-point strong {
+      display: block;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .intro-point span { color: var(--muted); font-size: 12px; }
+
+    .options {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+      color: var(--text);
+      padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(255,255,255,.72);
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .option[hidden] { display: none; }
+
+    .option:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,122,0,.55);
+      background: rgba(255,122,0,.07);
+    }
+
+    .option.selected {
+      border-color: var(--brand);
+      background: rgba(255,122,0,.11);
+      box-shadow: inset 0 0 0 1px rgba(255,122,0,.2), 0 12px 30px rgba(0,0,0,.18);
+    }
+
+    .option-letter {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(53,45,37,.14);
+      border-radius: 10px;
+      color: var(--brand-2);
+      background: rgba(255,255,255,.9);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .option.selected .option-letter {
+      color: #161616;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+
+    .option-text strong { display: block; font-size: 15px; }
+    .option-text small { display: block; color: var(--muted); margin-top: 3px; font-size: 12px; }
+
+    .fields {
+      display: grid;
+      gap: 15px;
+      margin-top: 27px;
+    }
+
+    .field { display: grid; gap: 7px; }
+    .field label { color: var(--muted); font-size: 13px; font-weight: 700; }
+
+    .field input, .field select {
+      width: 100%;
+      color: var(--text);
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      outline: none;
+      border-radius: 12px;
+      background: rgba(255,255,255,.9);
+      transition: .2s ease;
+    }
+
+    .field input:focus, .field select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(255,122,0,.11);
+    }
+
+    .field select option { color: #111; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .field-error {
+      min-height: 18px;
+      margin: 0;
+      color: #b42318;
+      font-size: 12px;
+    }
+
+    .privacy-note {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .honeypot {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: auto;
+      padding-top: 30px;
+    }
+
+    .btn {
+      min-height: 48px;
+      border: 0;
+      border-radius: 13px;
+      padding: 13px 20px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn:disabled { opacity: .42; cursor: not-allowed; transform: none; }
+
+    .btn-primary {
+      margin-left: auto;
+      color: #111;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      box-shadow: 0 12px 28px rgba(255,122,0,.2);
+    }
+
+    .btn-secondary {
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.72);
+    }
+
+    .error {
+      display: none;
+      margin-top: 12px;
+      color: #c93434;
+      font-size: 13px;
+    }
+
+    .error.show { display: block; }
+
+    .step[data-step="11"] h2 { font-size: clamp(24px, 4vw, 32px); }
+    .step[data-step="11"] > .description { margin-top: 10px; font-size: 14px; font-weight: 700; }
+
+    .result-box {
+      margin-top: 18px;
+      padding: 20px;
+      border: 1px solid rgba(255,122,0,.25);
+      border-radius: 8px;
+      background: rgba(255,255,255,.88);
+    }
+
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .score-ring {
+      --score: 95;
+      position: relative;
+      flex: 0 0 auto;
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: conic-gradient(var(--brand) calc(var(--score) * 1%), rgba(63,52,42,.10) 0);
+    }
+
+    .score-ring::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: 50%;
+      background: var(--bg-2);
+    }
+
+    .score-ring strong { position: relative; z-index: 1; font-size: 17px; line-height: 1; }
+    .result-copy h3 { margin: 0 0 4px; font-size: 16px; }
+    .result-copy p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .capacity-compare { display: grid; gap: 16px; margin-top: 18px; }
+    .capacity-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+    .capacity-meta span { color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .capacity-meta strong { text-align: right; font-size: 14px; }
+    .capacity-track { height: 12px; overflow: hidden; border-radius: 4px; background: rgba(53,45,37,.10); }
+    .capacity-fill { height: 100%; border-radius: inherit; }
+    .capacity-fill.current { width: 28%; background: #9da3aa; }
+    .capacity-fill.smart { width: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
+
+    .capacity-highlight {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 11px 13px;
+      border-radius: 6px;
+      background: rgba(255,122,0,.09);
+    }
+    .capacity-highlight strong { flex: 0 0 auto; color: var(--brand); font-size: 20px; }
+    .capacity-highlight span { color: var(--text); font-size: 12px; font-weight: 700; }
+
+    .result-note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .disclaimer {
+      margin: 15px 0 0;
+      color: #85817c;
+      font-size: 11px;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: #7a7772;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    @media (max-width: 700px) {
+      .page { width: min(100% - 20px, var(--max)); padding-top: 15px; }
+      .topbar { margin-bottom: 16px; }
+      .secure { display: none; }
+      .quiz-shell { border-radius: 20px; }
+      .progress-area { padding: 18px 18px 0; }
+      .content { min-height: 570px; padding: 28px 18px 22px; }
+      .intro-points { grid-template-columns: 1fr; }
+      .score-row { align-items: flex-start; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; }
+      .score-ring { width: 88px; height: 88px; }
+      .actions { gap: 10px; }
+      .btn { padding-inline: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <a class="brand" href="#" aria-label="Smart Encartes">
+        <div class="brand-mark">S</div>
+        <div class="brand-name">
+          <strong>Smart Encartes</strong>
+          <span>Diagnóstico de produtividade</span>
+        </div>
+      </a>
+      <div class="secure">🔒 Seus dados estão seguros</div>
+    </div>
+
+    <main class="quiz-shell">
+      <div class="progress-area">
+        <div class="progress-meta">
+          <span id="progressLabel">Diagnóstico inicial</span>
+          <span id="progressNumber">0%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="content">
+        <section class="step active" data-step="0">
+          <div class="eyebrow">Diagnóstico gratuito</div>
+          <h1>Quanto sua operação poderia crescer com <span class="gradient-text">encartes automatizados?</span></h1>
+          <p class="description">Responda algumas perguntas rápidas. No final, você recebe uma análise do nível de gargalo da sua produção e do potencial de escala da sua equipe.</p>
+
+          <div class="intro-points">
+            <div class="intro-point"><strong>Leva menos de 2 minutos</strong><span>Perguntas objetivas sobre sua rotina.</span></div>
+            <div class="intro-point"><strong>Diagnóstico personalizado</strong><span>Resultado baseado no seu volume atual.</span></div>
+            <div class="intro-point"><strong>Sem compromisso</strong><span>Você decide se quer falar com um especialista.</span></div>
+          </div>
+        </section>
+
+        <section class="step" data-step="1" data-question="perfil">
+          <div class="eyebrow">Seu perfil profissional</div>
+          <h2>Qual op&ccedil;&atilde;o descreve melhor seu perfil profissional hoje?</h2>
+          <p class="description">As próximas perguntas serão adaptadas ao formato da sua operação.</p>
+          <div class="options">
+            <button class="option" data-value="Dono de agência" data-profile="agencia" data-score="12"><span class="option-letter">A</span><span class="option-text"><strong>Dono de agência</strong><small>Tenho equipe ou uma estrutura que atende múltiplos clientes.</small></span></button>
+            <button class="option" data-value="Designer autônomo" data-profile="autonomo" data-score="10"><span class="option-letter">B</span><span class="option-text"><strong>Designer autônomo</strong><small>Atendo meus clientes diretamente e conduzo a produção.</small></span></button>
+            <button class="option" data-value="Designer de ag&ecirc;ncia" data-profile="designer_agencia" data-score="11"><span class="option-letter">C</span><span class="option-text"><strong>Designer de ag&ecirc;ncia</strong><small>Trabalho na equipe de uma ag&ecirc;ncia, mas n&atilde;o sou o propriet&aacute;rio.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="2" data-question="nicho">
+          <div class="eyebrow">Foco de atuação</div>
+          <h2 data-agencia="O nicho de supermercados é o principal foco ou um dos focos da sua agência?" data-autonomo="O nicho de supermercados é o seu principal foco ou um dos seus focos como designer?" data-designer-agencia="O nicho de supermercados &eacute; o principal foco ou um dos focos da ag&ecirc;ncia onde voc&ecirc; trabalha?">O nicho de supermercados é o principal foco ou um dos focos da sua operação?</h2>
+          <div class="options">
+            <button class="option" data-value="É o principal foco" data-score="18"><span class="option-letter">A</span><span class="option-text"><strong>É o principal foco</strong><small>A maior parte dos clientes ou projetos está nesse nicho.</small></span></button>
+            <button class="option" data-value="É um dos principais focos" data-score="15"><span class="option-letter">B</span><span class="option-text"><strong>É um dos principais focos</strong><small>Supermercados representam uma parte importante da operação.</small></span></button>
+            <button class="option" data-value="Atendo ocasionalmente" data-score="7"><span class="option-letter">C</span><span class="option-text"><strong>Atendo ocasionalmente</strong><small>Faço encartes, mas o nicho ainda não é recorrente.</small></span></button>
+            <button class="option" data-value="Ainda não atendo supermercados" data-score="2"><span class="option-letter">D</span><span class="option-text"><strong>Ainda não atendo supermercados</strong><small>Tenho interesse em entrar ou crescer nesse mercado.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="3" data-question="photoshop">
+          <div class="eyebrow">Ferramenta atual</div>
+          <h2 data-agencia="Sua equipe utiliza o Photoshop para criar os encartes atualmente?" data-autonomo="Você utiliza o Photoshop para criar seus encartes atualmente?" data-designer-agencia="Voc&ecirc; utiliza o Photoshop para criar os encartes da ag&ecirc;ncia atualmente?">Você utiliza o Photoshop para criar seus encartes atualmente?</h2>
+          <p class="description">O Smart Encartes trabalha diretamente no PSD e preserva o controle sobre o layout.</p>
+          <div class="options">
+            <button class="option" data-value="Sim, em todos os encartes" data-score="18"><span class="option-letter">A</span><span class="option-text"><strong>Sim, em todos os encartes</strong><small>O Photoshop é a base do processo.</small></span></button>
+            <button class="option" data-value="Sim, na maioria" data-score="14"><span class="option-letter">B</span><span class="option-text"><strong>Sim, na maioria deles</strong><small>Parte da produção usa outras ferramentas.</small></span></button>
+            <button class="option" data-value="Às vezes" data-score="7"><span class="option-letter">C</span><span class="option-text"><strong>Às vezes</strong><small>O Photoshop aparece apenas em alguns trabalhos.</small></span></button>
+            <button class="option" data-value="Não utiliza Photoshop" data-score="0"><span class="option-letter">D</span><span class="option-text"><strong>Não</strong><small>O processo acontece em outra ferramenta.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="4" data-question="volume">
+          <div class="eyebrow">Volume diário</div>
+          <h2 data-agencia="Quantos encartes e produtos sua equipe precisa produzir por dia?" data-autonomo="Quantos encartes e produtos você precisa produzir por dia?" data-designer-agencia="Quantos encartes e produtos voc&ecirc; produz por dia na ag&ecirc;ncia?">Quantos encartes e produtos você precisa produzir por dia?</h2>
+          <div class="options">
+            <button class="option" data-value="1 encarte / at&eacute; 24 produtos" data-score="4"><span class="option-letter">A</span><span class="option-text"><strong>1 encarte, at&eacute; 24 produtos</strong><small>Volume mais pontual.</small></span></button>
+            <button class="option" data-value="2 encartes / at&eacute; 50 produtos" data-score="9"><span class="option-letter">B</span><span class="option-text"><strong>2 encartes, at&eacute; 50 produtos</strong><small>Produ&ccedil;&atilde;o recorrente durante o dia.</small></span></button>
+            <button class="option" data-value="3 a 5 encartes / mais de 100 produtos" data-score="15"><span class="option-letter">C</span><span class="option-text"><strong>3 a 5 encartes, mais de 100 produtos</strong><small>Opera&ccedil;&atilde;o com volume alto.</small></span></button>
+            <button class="option" data-value="Mais de 5 encartes / producao intensa" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>Mais de 5 encartes</strong><small>Produ&ccedil;&atilde;o intensa e alta repeti&ccedil;&atilde;o.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="5" data-question="tempo50">
+          <div class="eyebrow">Tempo de produção</div>
+          <h2 data-agencia="Quanto tempo sua equipe leva para preencher um encarte com aproximadamente 50 produtos?" data-autonomo="Quanto tempo você leva para preencher um encarte com aproximadamente 50 produtos?" data-designer-agencia="Quanto tempo voc&ecirc; leva para preencher um encarte com aproximadamente 50 produtos?">Quanto tempo leva para preencher um encarte com aproximadamente 50 produtos?</h2>
+          <p class="description">Considere nomes, preços, unidades, imagens e posicionamento no PSD.</p>
+          <div class="options">
+            <button class="option" data-value="45 minutos a 1 hora" data-score="3"><span class="option-letter">A</span><span class="option-text"><strong>De 45 minutos a 1 hora</strong><small>O processo j&aacute; ocupa uma parte relevante da entrega.</small></span></button>
+            <button class="option" data-value="1 a 2 horas" data-score="8"><span class="option-letter">B</span><span class="option-text"><strong>De 1 a 2 horas</strong><small>O preenchimento consome uma parte importante da rotina.</small></span></button>
+            <button class="option" data-value="2 a 3 horas" data-score="15"><span class="option-letter">C</span><span class="option-text"><strong>De 2 a 3 horas</strong><small>O operacional j&aacute; limita a produtividade.</small></span></button>
+            <button class="option" data-value="Mais de 3 horas" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>Mais de 3 horas</strong><small>Grande parte da capacidade fica presa no preenchimento.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="6" data-question="gargalo">
+          <div class="eyebrow">Principal gargalo</div>
+          <h2 data-agencia="Qual etapa mais atrasa a produção da sua equipe?" data-autonomo="Qual etapa mais atrasa sua produção?" data-designer-agencia="Qual etapa mais atrasa sua produ&ccedil;&atilde;o dentro da ag&ecirc;ncia?">Qual etapa mais atrasa sua produção?</h2>
+          <div class="options">
+            <button class="option" data-value="Preenchimento de nomes e preços" data-score="18"><span class="option-letter">A</span><span class="option-text"><strong>Preenchimento</strong><small>Nomes, preços, unidades e informações repetitivas.</small></span></button>
+            <button class="option" data-value="Busca de imagens" data-score="15"><span class="option-letter">B</span><span class="option-text"><strong>Busca de imagens</strong><small>Encontrar a imagem correta para cada produto.</small></span></button>
+            <button class="option" data-value="Recorte e posicionamento" data-score="14"><span class="option-letter">C</span><span class="option-text"><strong>Recorte e posicionamento</strong><small>Preparar, ajustar e distribuir as imagens.</small></span></button>
+            <button class="option" data-value="Alterações e organização dos arquivos" data-score="11"><span class="option-letter">D</span><span class="option-text"><strong>Alterações ou organização</strong><small>Refações, versões, listas e arquivos espalhados.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="7" data-question="mais10">
+          <div class="eyebrow">Capacidade da operação</div>
+          <h2 data-agencia="Hoje, sua equipe conseguiria atender mais 10 clientes sem comprometer prazos, qualidade ou sobrecarregar a operação?" data-autonomo="Hoje, você conseguiria atender mais 10 clientes sem comprometer prazos, qualidade ou sobrecarregar sua rotina?" data-designer-agencia="Hoje, voc&ecirc; e sua equipe conseguiriam atender mais 10 clientes sem comprometer prazos, qualidade ou sobrecarregar a opera&ccedil;&atilde;o?">Hoje, sua operação conseguiria atender mais 10 clientes sem comprometer prazos ou qualidade?</h2>
+          <div class="options">
+            <button class="option" data-value="Não conseguiria" data-score="20"><span class="option-letter">A</span><span class="option-text"><strong>Não conseguiria</strong><small>A capacidade atual já está próxima do limite.</small></span></button>
+            <button class="option" data-value="Talvez, com sobrecarga" data-score="16"><span class="option-letter">B</span><span class="option-text"><strong>Talvez, mas com sobrecarga</strong><small>Seria necessário aumentar horas ou correr riscos.</small></span></button>
+            <button class="option" data-value="Conseguiria parte dos 10" data-score="9"><span class="option-letter">C</span><span class="option-text"><strong>Conseguiria atender parte deles</strong><small>Ainda existe alguma margem operacional.</small></span></button>
+            <button class="option" data-value="Sim, conseguiria os 10" data-score="3"><span class="option-letter">D</span><span class="option-text"><strong>Sim, conseguiria os 10</strong><small>A estrutura atual ainda possui boa capacidade.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="8" data-question="limite_processo_atual">
+          <div class="eyebrow" data-agencia="Estrutura atual" data-autonomo="Prioridade com mais tempo" data-designer-agencia="Estrutura atual">Impacto na opera&ccedil;&atilde;o</div>
+          <h2 data-agencia="Quantos designers fazem parte da sua equipe hoje?" data-autonomo="Em que &aacute;rea voc&ecirc; focaria caso tivesse mais tempo?" data-designer-agencia="Quantos designers fazem parte da equipe em que voc&ecirc; trabalha?">Onde o tempo recuperado geraria mais resultado?</h2>
+          <p class="description" data-agencia="Considere apenas a equipe ligada &agrave; produ&ccedil;&atilde;o de encartes." data-autonomo="Escolha onde esse tempo teria maior impacto na sua rotina e na sua renda." data-designer-agencia="Considere apenas a equipe ligada &agrave; produ&ccedil;&atilde;o de encartes.">Escolha a alternativa mais pr&oacute;xima da sua realidade.</p>
+          <div class="options">
+            <button class="option" data-profiles="agencia designer_agencia" data-value="1 designer" data-score="4"><span class="option-letter">A</span><span class="option-text"><strong>1 designer</strong><small>Estrutura mais enxuta e centralizada.</small></span></button>
+            <button class="option" data-profiles="agencia designer_agencia" data-value="2 a 3 designers" data-score="9"><span class="option-letter">B</span><span class="option-text"><strong>2 a 3 designers</strong><small>Equipe pequena com produ&ccedil;&atilde;o recorrente.</small></span></button>
+            <button class="option" data-profiles="agencia designer_agencia" data-value="4 a 6 designers" data-score="15"><span class="option-letter">C</span><span class="option-text"><strong>4 a 6 designers</strong><small>Parte relevante da estrutura est&aacute; na produ&ccedil;&atilde;o.</small></span></button>
+            <button class="option" data-profiles="agencia designer_agencia" data-value="7 ou mais designers" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>7 ou mais designers</strong><small>O custo do processo manual se multiplica pela equipe.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="Produziria e publicaria mais para meus clientes" data-score="12"><span class="option-letter">A</span><span class="option-text"><strong>Produziria mais para meus clientes</strong><small>Aumentaria a frequ&ecirc;ncia e a qualidade das entregas.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="Procuraria novos clientes para aumentar minha renda" data-score="18"><span class="option-letter">B</span><span class="option-text"><strong>Procuraria novos clientes</strong><small>Usaria o tempo livre para aumentar minha renda.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="Focaria no social media dos clientes" data-score="9"><span class="option-letter">C</span><span class="option-text"><strong>Focaria no social media dos clientes</strong><small>Ampliaria o servi&ccedil;o entregue para cada conta.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="Aumentaria a quantidade de encartes dos clientes" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>Aumentaria a quantidade de encartes</strong><small>Produziria mais pe&ccedil;as para os clientes atuais.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="9" data-question="capacidade_atual">
+          <div class="eyebrow">Custo da produ&ccedil;&atilde;o manual</div>
+          <h2 data-agencia="Quanto custa por m&ecirc;s manter a equipe de design necess&aacute;ria para atender sua carteira atual?" data-autonomo="Quanto voc&ecirc; estima que deixa de faturar por m&ecirc;s por falta de tempo para atender novos clientes?" data-designer-agencia="Quantas horas por semana sua equipe perde com preenchimento, busca de imagens e retrabalho?">Quanto o processo manual custa para sua opera&ccedil;&atilde;o?</h2>
+          <p class="description">Use uma estimativa. O objetivo &eacute; tornar vis&iacute;vel o dinheiro ou tempo consumido sem automa&ccedil;&atilde;o.</p>
+          <div class="options">
+            <button class="option" data-profiles="agencia" data-value="Ate R$ 5.000 por mes em equipe" data-score="4"><span class="option-letter">A</span><span class="option-text"><strong>At&eacute; R$ 5.000 por m&ecirc;s</strong><small>Equipe compacta para manter os clientes atuais.</small></span></button>
+            <button class="option" data-profiles="agencia" data-value="R$ 5.000 a R$ 10.000 por mes em equipe" data-score="9"><span class="option-letter">B</span><span class="option-text"><strong>De R$ 5.000 a R$ 10.000 por m&ecirc;s</strong><small>Custo relevante concentrado na produ&ccedil;&atilde;o.</small></span></button>
+            <button class="option" data-profiles="agencia" data-value="R$ 10.000 a R$ 20.000 por mes em equipe" data-score="15"><span class="option-letter">C</span><span class="option-text"><strong>De R$ 10.000 a R$ 20.000 por m&ecirc;s</strong><small>A opera&ccedil;&atilde;o exige uma estrutura maior.</small></span></button>
+            <button class="option" data-profiles="agencia" data-value="Mais de R$ 20.000 por mes em equipe" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>Mais de R$ 20.000 por m&ecirc;s</strong><small>O trabalho manual representa um custo alto de escala.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="Ate R$ 1.000 por mes nao faturados" data-score="4"><span class="option-letter">A</span><span class="option-text"><strong>At&eacute; R$ 1.000 por m&ecirc;s</strong><small>Uma oportunidade menor que fica sem atendimento.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="R$ 1.000 a R$ 2.500 por mes nao faturados" data-score="9"><span class="option-letter">B</span><span class="option-text"><strong>De R$ 1.000 a R$ 2.500 por m&ecirc;s</strong><small>Clientes ou entregas deixam de entrar na agenda.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="R$ 2.500 a R$ 5.000 por mes nao faturados" data-score="15"><span class="option-letter">C</span><span class="option-text"><strong>De R$ 2.500 a R$ 5.000 por m&ecirc;s</strong><small>A falta de tempo j&aacute; compromete o crescimento.</small></span></button>
+            <button class="option" data-profiles="autonomo" data-value="Mais de R$ 5.000 por mes nao faturados" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>Mais de R$ 5.000 por m&ecirc;s</strong><small>O processo manual bloqueia receita relevante.</small></span></button>
+            <button class="option" data-profiles="designer_agencia" data-value="Ate 5 horas perdidas por semana" data-score="4"><span class="option-letter">A</span><span class="option-text"><strong>At&eacute; 5 horas por semana</strong><small>Perda pontual dentro da rotina.</small></span></button>
+            <button class="option" data-profiles="designer_agencia" data-value="6 a 10 horas perdidas por semana" data-score="9"><span class="option-letter">B</span><span class="option-text"><strong>De 6 a 10 horas por semana</strong><small>Mais de um dia de trabalho consumido.</small></span></button>
+            <button class="option" data-profiles="designer_agencia" data-value="11 a 20 horas perdidas por semana" data-score="15"><span class="option-letter">C</span><span class="option-text"><strong>De 11 a 20 horas por semana</strong><small>Uma parte relevante da capacidade da equipe.</small></span></button>
+            <button class="option" data-profiles="designer_agencia" data-value="Mais de 20 horas perdidas por semana" data-score="20"><span class="option-letter">D</span><span class="option-text"><strong>Mais de 20 horas por semana</strong><small>Tempo equivalente a uma fun&ccedil;&atilde;o parcial na equipe.</small></span></button>
+          </div>
+        </section>
+
+        <section class="step" data-step="10" data-contact>
+          <div class="eyebrow">Seu diagn&oacute;stico est&aacute; pronto</div>
+          <h2>Para quem devemos enviar esta an&aacute;lise?</h2>
+          <p class="description">Informe seus dados para ver o resultado completo e falar com um especialista, se fizer sentido para voc&ecirc;.</p>
+
+          <form class="fields" id="leadForm" novalidate>
+            <div class="field">
+              <label for="leadName">Seu nome</label>
+              <input id="leadName" name="name" type="text" autocomplete="name" maxlength="100" required />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="leadWhatsapp">WhatsApp</label>
+                <input id="leadWhatsapp" name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="(00) 00000-0000" required />
+              </div>
+              <div class="field">
+                <label for="leadEmail">E-mail <span aria-hidden="true">(opcional)</span></label>
+                <input id="leadEmail" name="email" type="email" autocomplete="email" maxlength="160" />
+              </div>
+            </div>
+            <div class="field honeypot" aria-hidden="true">
+              <label for="leadWebsite">N&atilde;o preencha este campo</label>
+              <input id="leadWebsite" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <p class="privacy-note">Ao continuar, voc&ecirc; concorda em receber contato da Smart Encartes sobre este diagn&oacute;stico.</p>
+            <p class="field-error" id="leadError" role="alert" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="step" data-step="11">
+          <div class="eyebrow">Seu diagnóstico está pronto</div>
+          <h2 id="resultTitle">Veja o impacto possível na sua operação.</h2>
+          <p class="description" id="resultDescription"></p>
+
+          <div class="result-box">
+            <div class="score-row">
+              <div class="score-ring" id="scoreRing"><strong id="scoreText">95%</strong></div>
+              <div class="result-copy">
+                <h3 id="resultLevel">Alta ader&ecirc;ncia</h3>
+                <p id="resultSummary">Seu cen&aacute;rio tem forte potencial de automa&ccedil;&atilde;o.</p>
+              </div>
+            </div>
+
+            <div class="capacity-compare" aria-label="Compara&ccedil;&atilde;o de capacidade">
+              <div class="capacity-row">
+                <div class="capacity-meta"><span>Hoje</span><strong id="todayCapacity">5 a 6 clientes por designer</strong></div>
+                <div class="capacity-track" aria-hidden="true"><div class="capacity-fill current"></div></div>
+              </div>
+              <div class="capacity-row">
+                <div class="capacity-meta"><span>Com automa&ccedil;&atilde;o</span><strong id="smartCapacity">At&eacute; 20 clientes por designer</strong></div>
+                <div class="capacity-track" aria-hidden="true"><div class="capacity-fill smart"></div></div>
+              </div>
+            </div>
+
+            <div class="capacity-highlight">
+              <strong id="growthBadge">+0</strong>
+              <span id="growthText">clientes de capacidade estimada sem ampliar a equipe na mesma propor&ccedil;&atilde;o.</span>
+            </div>
+            <p class="result-note" id="impactNote"></p>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button class="btn btn-secondary" id="backBtn" type="button" style="visibility:hidden">Voltar</button>
+          <button class="btn btn-primary" id="nextBtn" type="button">Iniciar diagnóstico</button>
+        </div>
+      </div>
+    </main>
+
+    <div class="footer-note">© 2026 Smart Encartes — Automação profissional dentro do Photoshop.</div>
+  </div>
+
+  <script>
+    (() => {
+      const WHATSAPP_NUMBER = '5543933008695';
+      const AUTOMATED_MINUTES_50 = 6;
+      const steps = [...document.querySelectorAll('.step')];
+      const questionSteps = steps.filter(step => step.dataset.question);
+      const contactIndex = steps.findIndex(step => step.hasAttribute('data-contact'));
+      const resultIndex = steps.length - 1;
+      const progressBar = document.getElementById('progressBar');
+      const progressNumber = document.getElementById('progressNumber');
+      const progressLabel = document.getElementById('progressLabel');
+      const nextBtn = document.getElementById('nextBtn');
+      const backBtn = document.getElementById('backBtn');
+      const leadForm = document.getElementById('leadForm');
+      const leadError = document.getElementById('leadError');
+      const answers = {};
+      let currentStep = 0;
+      let profile = 'agencia';
+      let savingLead = false;
+
+      const getActiveStep = () => steps[currentStep];
+
+      function adaptLanguage() {
+        const profileKey = profile === 'designer_agencia' ? 'designerAgencia' : profile;
+        document.querySelectorAll('[data-agencia][data-autonomo][data-designer-agencia]').forEach(element => {
+          element.textContent = element.dataset[profileKey] || element.dataset.agencia;
+        });
+        document.querySelectorAll('.option[data-profiles]').forEach(option => {
+          option.hidden = !option.dataset.profiles.split(' ').includes(profile);
+        });
+      }
+
+      function updateProgress() {
+        const percent = currentStep >= contactIndex ? 100 : Math.round((currentStep / questionSteps.length) * 100);
+        progressBar.style.width = percent + '%';
+        progressNumber.textContent = percent + '%';
+        if (currentStep === 0) progressLabel.textContent = 'Diagnóstico inicial';
+        else if (currentStep === contactIndex) progressLabel.textContent = 'Último passo';
+        else if (currentStep === resultIndex) progressLabel.textContent = 'Diagnóstico concluído';
+        else progressLabel.textContent = `Pergunta ${currentStep} de ${questionSteps.length}`;
+      }
+
+      function updateButtons() {
+        const question = getActiveStep().dataset.question;
+        backBtn.style.visibility = currentStep === 0 || currentStep === resultIndex ? 'hidden' : 'visible';
+        if (currentStep === 0) {
+          nextBtn.textContent = 'Iniciar diagnóstico';
+          nextBtn.disabled = false;
+        } else if (currentStep === contactIndex) {
+          nextBtn.textContent = savingLead ? 'Salvando...' : 'Ver meu resultado';
+          nextBtn.disabled = savingLead;
+        } else if (currentStep < resultIndex) {
+          nextBtn.textContent = 'Continuar';
+          nextBtn.disabled = !answers[question];
+        } else {
+          nextBtn.textContent = 'Chamar no WhatsApp';
+          nextBtn.disabled = false;
+        }
+      }
+
+      function showStep(index) {
+        steps.forEach((step, i) => step.classList.toggle('active', i === index));
+        currentStep = index;
+        adaptLanguage();
+        updateProgress();
+        updateButtons();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      questionSteps.forEach(step => {
+        const key = step.dataset.question;
+        step.querySelectorAll('.option').forEach(option => {
+          option.addEventListener('click', () => {
+            step.querySelectorAll('.option').forEach(item => item.classList.remove('selected'));
+            option.classList.add('selected');
+            answers[key] = { value: option.dataset.value, score: Number(option.dataset.score || 0) };
+            if (key === 'perfil' && option.dataset.profile) {
+              const nextProfile = option.dataset.profile;
+              if (profile !== nextProfile) {
+                ['limite_processo_atual', 'capacidade_atual'].forEach(answerKey => {
+                  delete answers[answerKey];
+                  document.querySelector('[data-question="' + answerKey + '"]')
+                    ?.querySelectorAll('.option.selected').forEach(item => item.classList.remove('selected'));
+                });
+              }
+              profile = nextProfile;
+            }
+            adaptLanguage();
+            updateButtons();
+            window.setTimeout(() => {
+              if (currentStep > 0 && currentStep < resultIndex) {
+                if (currentStep === questionSteps.length) calculateResult();
+                showStep(currentStep + 1);
+              }
+            }, 230);
+          });
+        });
+      });
+
+      function midpointFromAnswer(value, mapping, fallback) {
+        for (const [key, number] of Object.entries(mapping)) {
+          if (value.includes(key)) return number;
+        }
+        return fallback;
+      }
+
+      function calculateImpact() {
+        const volumeValue = answers.volume?.value || '';
+        const timeValue = answers.tempo50?.value || '';
+        const teamValue = answers.limite_processo_atual?.value || '';
+        const dailyProducts = midpointFromAnswer(volumeValue, {
+          '24 produtos': 24, '50 produtos': 50, 'mais de 100': 150, 'intensa': 300
+        }, 65);
+        const currentMinutes50 = midpointFromAnswer(timeValue, {
+          '45 minutos a 1 hora': 52.5, '1 a 2 horas': 90, '2 a 3 horas': 150, 'Mais de 3 horas': 210
+        }, 60);
+        const equivalentEncartes50 = Math.max(1, dailyProducts / 50);
+        const currentDailyMinutes = equivalentEncartes50 * currentMinutes50;
+        const automatedDailyMinutes = equivalentEncartes50 * AUTOMATED_MINUTES_50;
+        const savedMinutes = Math.max(0, currentDailyMinutes - automatedDailyMinutes);
+        const reduction = Math.max(0, Math.min(98, Math.round((savedMinutes / currentDailyMinutes) * 100)));
+        const designerCount = profile === 'autonomo' ? 1 : midpointFromAnswer(teamValue, {
+          '1 designer': 1, '2 a 3': 2.5, '4 a 6': 5, '7 ou mais': 8
+        }, 1);
+        const currentClientsPerDesigner = 5.5;
+        const smartClientsPerDesigner = 20;
+        const currentClientCapacity = Math.round(designerCount * currentClientsPerDesigner);
+        const automatedClientCapacity = Math.round(designerCount * smartClientsPerDesigner);
+        const growthLimit = profile === 'autonomo' ? 14 : 30;
+        const extraClients = Math.min(growthLimit, Math.max(0, automatedClientCapacity - currentClientCapacity));
+        const capacityMultiplier = Number((smartClientsPerDesigner / currentClientsPerDesigner).toFixed(1));
+        return {
+          dailyProducts, currentMinutes50, savedMinutes, reduction, designerCount,
+          currentClientCapacity, automatedClientCapacity, extraClients, capacityMultiplier
+        };
+      }
+
+      function formatDuration(minutes) {
+        const rounded = Math.round(minutes);
+        if (rounded < 60) return `${rounded} min`;
+        const hours = Math.floor(rounded / 60);
+        const mins = rounded % 60;
+        return mins ? `${hours}h ${mins}min` : `${hours}h`;
+      }
+
+      function calculateResult() {
+        const rawScore = questionSteps.reduce((total, step) => total + Number(answers[step.dataset.question]?.score || 0), 0);
+        const maxScore = questionSteps.reduce((total, step) => {
+          const scores = [...step.querySelectorAll('.option')].map(option => Number(option.dataset.score || 0));
+          return total + Math.max(...scores, 0);
+        }, 0);
+        const rawPercent = maxScore > 0 ? rawScore / maxScore : 0;
+        const percent = Math.max(95, Math.min(100, 95 + Math.round(rawPercent * 5)));
+        const impact = calculateImpact();
+        const contentByProfile = {
+          agencia: {
+            title: 'Sua equipe est\u00e1 limitada pelo processo manual',
+            description: 'Mais capacidade para aceitar contratos sem aumentar a equipe na mesma propor\u00e7\u00e3o.',
+            today: '5 a 6 clientes por designer',
+            smart: 'At\u00e9 20 clientes por designer',
+            growth: 'clientes de capacidade estimada para a ag\u00eancia.'
+          },
+          autonomo: {
+            title: 'Seu crescimento n\u00e3o precisa depender de trabalhar mais',
+            description: 'Mais clientes, mais organiza\u00e7\u00e3o e controle sobre cada entrega.',
+            today: '5 a 6 clientes recorrentes',
+            smart: 'At\u00e9 20 clientes recorrentes',
+            growth: 'clientes de capacidade estimada para sua carteira.'
+          },
+          designer_agencia: {
+            title: 'Menos preenchimento. Mais espa\u00e7o no seu dia.',
+            description: 'Menos tarefas repetitivas, menos ac\u00famulo e mais tempo para criar e revisar.',
+            today: '5 a 6 clientes por designer',
+            smart: 'At\u00e9 20 clientes por designer',
+            growth: 'clientes de capacidade estimada para a equipe.'
+          }
+        };
+        const content = contentByProfile[profile] || contentByProfile.agencia;
+        const level = 'Alta ader\u00eancia ao Smart Encartes';
+        document.getElementById('resultTitle').textContent = content.title;
+        document.getElementById('resultDescription').textContent = content.description;
+        document.getElementById('resultLevel').textContent = level;
+        document.getElementById('resultSummary').textContent = 'Seu cen\u00e1rio tem forte potencial de automa\u00e7\u00e3o.';
+        document.getElementById('scoreText').textContent = percent + '%';
+        document.getElementById('scoreRing').style.setProperty('--score', percent);
+        document.getElementById('todayCapacity').textContent = content.today;
+        document.getElementById('smartCapacity').textContent = content.smart;
+        document.getElementById('growthBadge').textContent = '+' + impact.extraClients;
+        document.getElementById('growthText').textContent = content.growth;
+        document.getElementById('impactNote').textContent = profile === 'autonomo'
+          ? 'Estimativa operacional baseada em uma capacidade atual de 5 a 6 clientes recorrentes.'
+          : 'Estimativa operacional baseada na quantidade informada de designers. O ganho adicional da ag\u00eancia fica limitado a +30 clientes.';
+        answers.resultado = { percent, level, ...impact };
+      }
+
+      function buildWhatsAppMessage() {
+        const labels = {
+          perfil: 'Perfil profissional', nicho: 'Foco em supermercados', photoshop: 'Uso do Photoshop',
+          volume: 'Volume di\u00e1rio', tempo50: 'Tempo para 50 produtos', gargalo: 'Principal gargalo',
+          mais10: 'Capacidade para mais 10 clientes',
+          limite_processo_atual: profile === 'autonomo' ? 'Prioridade com mais tempo' : 'Tamanho da equipe de designers',
+          capacidade_atual: profile === 'agencia' ? 'Custo mensal da equipe' : profile === 'autonomo' ? 'Receita mensal n\u00e3o captada' : 'Horas semanais perdidas pela equipe'
+        };
+        const responseLines = questionSteps.map(step => '\u2022 ' + labels[step.dataset.question] + ': ' + (answers[step.dataset.question]?.value || '-'));
+        const r = answers.resultado || {};
+        return [
+          'Ol\u00e1! Fiz o diagn\u00f3stico de produtividade do Smart Encartes e acredito que isso \u00e9 para a minha opera\u00e7\u00e3o.','',
+          'Ader\u00eancia: ' + (r.percent || 0) + '% \u2014 ' + (r.level || '-'),
+          'Capacidade estimada por designer: de 5 a 6 para at\u00e9 20 clientes',
+          'Crescimento estimado da carteira: +' + (r.extraClients || 0) + ' clientes',
+          'Capacidade total estimada com o Smart: at\u00e9 ' + (r.automatedClientCapacity || 20) + ' clientes','','Minhas respostas:',
+          ...responseLines,'','Quero ver como funcionaria no meu processo.'
+        ].join('\n');
+      }
+
+      function contactData() {
+        const formData = new FormData(leadForm);
+        return {
+          name: String(formData.get('name') || '').trim(),
+          whatsapp: String(formData.get('whatsapp') || '').trim(),
+          email: String(formData.get('email') || '').trim(),
+          website: String(formData.get('website') || '').trim()
+        };
+      }
+
+      async function saveLead() {
+        const contact = contactData();
+        const phoneDigits = contact.whatsapp.replace(/\D/g, '');
+        leadError.textContent = '';
+
+        if (contact.name.length < 2) {
+          leadError.textContent = 'Informe seu nome.';
+          document.getElementById('leadName').focus();
+          return false;
+        }
+        if (phoneDigits.length < 10 || phoneDigits.length > 15) {
+          leadError.textContent = 'Informe um WhatsApp válido com DDD.';
+          document.getElementById('leadWhatsapp').focus();
+          return false;
+        }
+        if (contact.email && !document.getElementById('leadEmail').checkValidity()) {
+          leadError.textContent = 'Informe um e-mail válido ou deixe o campo vazio.';
+          document.getElementById('leadEmail').focus();
+          return false;
+        }
+
+        savingLead = true;
+        updateButtons();
+        try {
+          const response = await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...contact,
+              whatsapp: phoneDigits,
+              answers,
+              consent: true,
+              source: 'diagnostico-smart-encartes'
+            })
+          });
+          if (!response.ok) throw new Error('Failed to save');
+          return true;
+        } catch (error) {
+          leadError.textContent = 'Não foi possível salvar agora. Verifique sua conexão e tente novamente.';
+          return false;
+        } finally {
+          savingLead = false;
+          updateButtons();
+        }
+      }
+
+      nextBtn.addEventListener('click', async () => {
+        if (currentStep === resultIndex) {
+          window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage())}`, '_blank', 'noopener');
+          return;
+        }
+        if (currentStep === contactIndex) {
+          if (await saveLead()) showStep(resultIndex);
+          return;
+        }
+        if (currentStep > 0) {
+          const question = getActiveStep().dataset.question;
+          if (!answers[question]) return;
+        }
+        if (currentStep === questionSteps.length) calculateResult();
+        showStep(Math.min(currentStep + 1, resultIndex));
+      });
+
+      backBtn.addEventListener('click', () => {
+        if (currentStep > 0 && currentStep < resultIndex && !savingLead) showStep(currentStep - 1);
+      });
+
+      leadForm.addEventListener('submit', event => {
+        event.preventDefault();
+        nextBtn.click();
+      });
+
+      adaptLanguage();
+      updateProgress();
+      updateButtons();
+    })();
+  </script>
+</body>
+</html>
