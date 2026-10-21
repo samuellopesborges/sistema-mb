@@ -656,9 +656,56 @@
       font-weight: 700;
     }
 
+    .calculator-value {
+      color: var(--brand-2);
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .calculator-field input[type="range"] {
+      appearance: none;
+      height: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--brand) var(--range-progress, 0%), rgba(255, 255, 255, .12) var(--range-progress, 0%));
+      cursor: pointer;
+    }
+
+    .calculator-field input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(255, 122, 0, .2);
+    }
+
+    .calculator-field input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(255, 122, 0, .2);
+    }
+
+    .calculator-field small {
+      display: block;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
     .calculator-result strong {
       display: block;
       font-size: clamp(26px, 4vw, 38px);
+    }
+
+    .calculator-result small {
+      display: block;
+      color: var(--muted);
+      margin-top: 8px;
     }
 
     .calculator-result.saved {
@@ -975,11 +1022,15 @@
           <div class="calculator-grid">
             <div class="calculator-field">
               <label for="calculator-flyers">Quantos encartes sua equipe faz por dia?</label>
-              <input id="calculator-flyers" type="number" min="1" max="100" value="4" inputmode="numeric">
+              <output class="calculator-value" id="calculator-flyers-value" for="calculator-flyers">4 encartes</output>
+              <input id="calculator-flyers" type="range" min="1" max="30" value="4" step="1">
+              <small>Deslize para ajustar o volume diário.</small>
             </div>
             <div class="calculator-field">
               <label for="calculator-items">Qual a média de produtos por encarte?</label>
-              <input id="calculator-items" type="number" min="1" max="500" value="24" inputmode="numeric">
+              <output class="calculator-value" id="calculator-items-value" for="calculator-items">24 produtos</output>
+              <input id="calculator-items" type="range" min="5" max="150" value="24" step="1">
+              <small>Use a média de produtos do seu encarte.</small>
             </div>
           </div>
           <div style="text-align:center; margin:22px 0">
@@ -993,13 +1044,25 @@
             <div class="calculator-result">
               <span>Tempo no processo manual</span>
               <strong id="calculator-manual">0h 00min</strong>
+              <small>Montagem, busca e ajuste item a item.</small>
+            </div>
+            <div class="calculator-result">
+              <span>Com Smart Encartes</span>
+              <strong id="calculator-smart">0min</strong>
+              <small id="calculator-speed">Automação direta no PSD.</small>
             </div>
             <div class="calculator-result saved">
               <span>Tempo economizado por dia</span>
               <strong id="calculator-saved">0h 00min</strong>
+              <small id="calculator-week">Equivalente a 0h por semana.</small>
+            </div>
+            <div class="calculator-result">
+              <span>Volume automatizado por dia</span>
+              <strong id="calculator-volume">0 produtos</strong>
+              <small>Itens processados sem repetir o trabalho manual.</small>
             </div>
           </div>
-          <p class="calculator-note">Estimativa baseada em cerca de 2min30s por produto no processo manual e na automação direta do Smart Encartes no Photoshop.</p>
+          <p class="calculator-note">Estimativa baseada em cerca de 2min30s por produto no processo manual. Com o Smart Encartes, a automação leva em média de 2 a 5 segundos por produto, conforme o volume e a complexidade do arquivo.</p>
         </div>
       </div>
     </section>
@@ -1259,21 +1322,46 @@
       const status = document.getElementById('calculator-status');
       const results = document.getElementById('calculator-results');
       const manual = document.getElementById('calculator-manual');
+      const smart = document.getElementById('calculator-smart');
       const saved = document.getElementById('calculator-saved');
+      const speed = document.getElementById('calculator-speed');
+      const week = document.getElementById('calculator-week');
+      const volume = document.getElementById('calculator-volume');
+      const flyersValue = document.getElementById('calculator-flyers-value');
+      const itemsValue = document.getElementById('calculator-items-value');
 
       function formatTime(seconds) {
         const hours = Math.floor(seconds / 3600);
-        const minutes = Math.round((seconds % 3600) / 60);
-        return `${hours}h ${String(minutes).padStart(2, '0')}min`;
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = Math.round(seconds % 60);
+        if (hours > 0) return `${hours}h ${String(minutes).padStart(2, '0')}min`;
+        if (minutes > 0) return `${minutes}min ${String(remainingSeconds).padStart(2, '0')}s`;
+        return `${remainingSeconds}s`;
       }
+
+      function updateSlider(slider, output, label) {
+        const progress = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+        slider.style.setProperty('--range-progress', `${progress}%`);
+        output.textContent = `${slider.value} ${label(Number(slider.value))}`;
+      }
+
+      function updateControls() {
+        updateSlider(flyers, flyersValue, value => value === 1 ? 'encarte' : 'encartes');
+        updateSlider(items, itemsValue, value => value === 1 ? 'produto' : 'produtos');
+      }
+
+      flyers.addEventListener('input', updateControls);
+      items.addEventListener('input', updateControls);
+      updateControls();
 
       button.addEventListener('click', function () {
         const flyersPerDay = Math.max(1, Number.parseInt(flyers.value, 10) || 1);
         const itemsPerFlyer = Math.max(1, Number.parseInt(items.value, 10) || 1);
         const productCount = flyersPerDay * itemsPerFlyer;
         const manualSeconds = productCount * 150;
-        const smartSecondsPerProduct = itemsPerFlyer <= 10 ? 4 : itemsPerFlyer <= 30 ? 6 : 15;
+        const smartSecondsPerProduct = itemsPerFlyer <= 10 ? 2 : itemsPerFlyer <= 30 ? 3 : 5;
         const smartSeconds = productCount * smartSecondsPerProduct;
+        const savedSeconds = Math.max(0, manualSeconds - smartSeconds);
 
         results.hidden = true;
         status.hidden = false;
@@ -1282,7 +1370,11 @@
 
         window.setTimeout(function () {
           manual.textContent = formatTime(manualSeconds);
-          saved.textContent = formatTime(Math.max(0, manualSeconds - smartSeconds));
+          smart.textContent = formatTime(smartSeconds);
+          saved.textContent = formatTime(savedSeconds);
+          speed.textContent = `Média de ${smartSecondsPerProduct}s por produto com automação no PSD.`;
+          week.textContent = `Equivalente a ${formatTime(savedSeconds * 5)} por semana de trabalho.`;
+          volume.textContent = `${productCount} produtos`;
           status.hidden = true;
           results.hidden = false;
           button.disabled = false;
