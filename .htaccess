@@ -111,7 +111,17 @@ RewriteBase /
 </IfModule>
 # END speedycache
 
- 
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^guia-de-automacao/?$ guia-de-automacao.html [L,QSA]
+RewriteRule ^smart-encartes-guia-de-automacao/?$ guia-de-automacao.html [L,QSA]
+RewriteRule ^automacao-encartes-photoshop/?$ automacao-encartes-photoshop.html [L,QSA]
+RewriteRule ^software-encartes-supermercado/?$ software-encartes-supermercado.html [L,QSA]
+RewriteRule ^encartes-para-agencias/?$ encartes-para-agencias.html [L,QSA]
+RewriteRule ^preencher-encartes-automaticamente/?$ preencher-encartes-automaticamente.html [L,QSA]
+RewriteRule ^como-fazer-encarte-supermercado/?$ como-fazer-encarte-supermercado.html [L,QSA]
+RewriteRule ^remover-fundo-produtos-encarte/?$ remover-fundo-produtos-encarte.html [L,QSA]
+</IfModule>
 
 # BEGIN WordPress
 # As directivas (linhas) entre "BEGIN WordPress" e "END WordPress" são geradas

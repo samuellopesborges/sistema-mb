@@ -51,6 +51,13 @@ npm start
 Rotas principais:
 
 - `/` site
+- `/guia-de-automacao` guia completo de automacao (SEO)
+- `/automacao-encartes-photoshop` automacao no Photoshop (SEO)
+- `/software-encartes-supermercado` software para supermercado (SEO)
+- `/encartes-para-agencias` encartes para agencias (SEO)
+- `/preencher-encartes-automaticamente` preenchimento automatico (SEO)
+- `/como-fazer-encarte-supermercado` como fazer encartes (SEO)
+- `/remover-fundo-produtos-encarte` remocao de fundo de produtos (SEO)
 - `/diagnostico` formulario
 - `/leads` painel protegido
 - `/healthz` verificacao de saude

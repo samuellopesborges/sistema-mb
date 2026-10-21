@@ -178,6 +178,13 @@ app.get('/download', (req, res) => res.sendFile(path.join(__dirname, 'download',
 app.get('/update', (req, res) => res.sendFile(path.join(__dirname, 'update', 'index.html')));
 app.get('/sistemas', (req, res) => res.sendFile(path.join(__dirname, 'sistema.html')));
 app.get(['/sistemas-mobile', '/sistema-mobile'], (req, res) => res.sendFile(path.join(__dirname, 'sistema-mb.html')));
+app.get(['/guia-de-automacao', '/smart-encartes-guia-de-automacao', '/guia-automacao', '/guia'], (req, res) => res.sendFile(path.join(__dirname, 'guia-de-automacao.html')));
+app.get(['/automacao-encartes-photoshop', '/automacao-encartes-photoshop.html'], (req, res) => res.sendFile(path.join(__dirname, 'automacao-encartes-photoshop.html')));
+app.get(['/software-encartes-supermercado', '/software-encartes-supermercado.html'], (req, res) => res.sendFile(path.join(__dirname, 'software-encartes-supermercado.html')));
+app.get(['/encartes-para-agencias', '/encartes-para-agencias.html'], (req, res) => res.sendFile(path.join(__dirname, 'encartes-para-agencias.html')));
+app.get(['/preencher-encartes-automaticamente', '/preencher-encartes-automaticamente.html'], (req, res) => res.sendFile(path.join(__dirname, 'preencher-encartes-automaticamente.html')));
+app.get(['/como-fazer-encarte-supermercado', '/como-fazer-encarte-supermercado.html'], (req, res) => res.sendFile(path.join(__dirname, 'como-fazer-encarte-supermercado.html')));
+app.get(['/remover-fundo-produtos-encarte', '/remover-fundo-produtos-encarte.html'], (req, res) => res.sendFile(path.join(__dirname, 'remover-fundo-produtos-encarte.html')));
 
 app.post('/api/leads', rateLimit, async (req, res, next) => {
   try {
