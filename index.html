@@ -192,6 +192,17 @@
       color: var(--text)
     }
 
+    .cta-youtube {
+      border-color: rgba(255, 0, 51, .65);
+      color: #fff;
+      background: rgba(255, 0, 51, .12);
+    }
+
+    .cta-youtube:hover {
+      background: #ff0033;
+      border-color: #ff0033;
+    }
+
     /* Títulos / Texto */
     h1 {
       font-size: clamp(28px, 5vw, 54px);
@@ -597,6 +608,76 @@
       background: rgba(255, 122, 0, .08)
     }
 
+    .time-calculator {
+      background: linear-gradient(180deg, var(--bg-3), var(--bg-2));
+      border: 1px solid rgba(255, 122, 0, .45);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 4vw, 42px);
+    }
+
+    .calculator-grid,
+    .calculator-results {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .calculator-field,
+    .calculator-result {
+      border: 1px solid rgba(255, 255, 255, .1);
+      background: rgba(255, 255, 255, .03);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .calculator-field label,
+    .calculator-result span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .calculator-field input {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 9px;
+      padding: 12px;
+      color: var(--text);
+      background: var(--bg);
+      font: inherit;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .calculator-result strong {
+      display: block;
+      font-size: clamp(26px, 4vw, 38px);
+    }
+
+    .calculator-result.saved {
+      border-color: rgba(33, 197, 93, .55);
+      background: rgba(33, 197, 93, .08);
+    }
+
+    .calculator-result.saved strong {
+      color: var(--ok);
+    }
+
+    .calculator-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 18px 0 0;
+    }
+
+    @media (max-width:600px) {
+      .calculator-grid,
+      .calculator-results {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Contraste laranja em Módulos */
     #modulos b {
       background: linear-gradient(135deg, var(--brand), var(--brand-2));
@@ -821,6 +902,8 @@
               href="https://wa.me/5543933008695?text=Quero%20acelerar%20meus%20encartes%20com%20o%20Smart"
               target="_blank" rel="noopener">Quero acelerar agora</a>
             <a class="cta-outline" href="#como-funciona">Ver como funciona</a>
+            <a class="cta-outline cta-youtube" href="https://www.youtube.com/@smart.encartes" target="_blank"
+              rel="noopener">▶ Ver demonstração</a>
           </div>
           <div class="badges">
             <span class="badge">Instalação local</span>
@@ -845,6 +928,43 @@
               <div class="l">controle do layout</div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALCULADORA DE ECONOMIA DE TEMPO -->
+    <section id="calculadora">
+      <div class="wrap">
+        <div class="time-calculator">
+          <div style="text-align:center; margin-bottom:26px">
+            <div class="kicker">Simulador de produtividade</div>
+            <h2 class="section-title" style="margin-top:8px">Calcule a economia de tempo da sua equipe</h2>
+            <p class="section-lead" style="margin:0 auto">Informe seu volume diário e veja uma estimativa de tempo economizado ao automatizar a montagem dos encartes.</p>
+          </div>
+          <div class="calculator-grid">
+            <div class="calculator-field">
+              <label for="calculator-flyers">Quantos encartes sua equipe faz por dia?</label>
+              <input id="calculator-flyers" type="number" min="1" max="100" value="4" inputmode="numeric">
+            </div>
+            <div class="calculator-field">
+              <label for="calculator-items">Qual a média de produtos por encarte?</label>
+              <input id="calculator-items" type="number" min="1" max="500" value="24" inputmode="numeric">
+            </div>
+          </div>
+          <div style="text-align:center; margin:22px 0">
+            <button class="cta" id="calculator-button" type="button">Calcular minha economia</button>
+          </div>
+          <div class="calculator-results" id="calculator-results" hidden aria-live="polite">
+            <div class="calculator-result">
+              <span>Tempo no processo manual</span>
+              <strong id="calculator-manual">0h 00min</strong>
+            </div>
+            <div class="calculator-result saved">
+              <span>Tempo economizado por dia</span>
+              <strong id="calculator-saved">0h 00min</strong>
+            </div>
+          </div>
+          <p class="calculator-note">Estimativa baseada em cerca de 2min30s por produto no processo manual e na automação direta do Smart Encartes no Photoshop.</p>
         </div>
       </div>
     </section>
@@ -1096,6 +1216,34 @@
       return url + (hasQuery ? '&' : '?') + params.toString();
     }
     document.querySelectorAll('a.cta').forEach(a => a.href = withUTM(a.href));
+
+    (function () {
+      const flyers = document.getElementById('calculator-flyers');
+      const items = document.getElementById('calculator-items');
+      const button = document.getElementById('calculator-button');
+      const results = document.getElementById('calculator-results');
+      const manual = document.getElementById('calculator-manual');
+      const saved = document.getElementById('calculator-saved');
+
+      function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.round((seconds % 3600) / 60);
+        return `${hours}h ${String(minutes).padStart(2, '0')}min`;
+      }
+
+      button.addEventListener('click', function () {
+        const flyersPerDay = Math.max(1, Number.parseInt(flyers.value, 10) || 1);
+        const itemsPerFlyer = Math.max(1, Number.parseInt(items.value, 10) || 1);
+        const productCount = flyersPerDay * itemsPerFlyer;
+        const manualSeconds = productCount * 150;
+        const smartSecondsPerProduct = itemsPerFlyer <= 10 ? 4 : itemsPerFlyer <= 30 ? 6 : 15;
+        const smartSeconds = productCount * smartSecondsPerProduct;
+
+        manual.textContent = formatTime(manualSeconds);
+        saved.textContent = formatTime(Math.max(0, manualSeconds - smartSeconds));
+        results.hidden = false;
+      });
+    }());
 
     // RESULTADOS: progresso do scroll -> CSS var --p (0..1)
     (function () {
