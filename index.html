@@ -623,6 +623,11 @@
       gap: 16px;
     }
 
+    .calculator-results[hidden],
+    .calculator-status[hidden] {
+      display: none;
+    }
+
     .calculator-field,
     .calculator-result {
       border: 1px solid rgba(255, 255, 255, .1);
@@ -669,6 +674,32 @@
       color: var(--muted);
       font-size: 14px;
       margin: 18px 0 0;
+    }
+
+    .calculator-status {
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--brand-2);
+      font-weight: 700;
+      margin: 22px 0;
+    }
+
+    .calculator-status:not([hidden]) {
+      display: flex;
+    }
+
+    .calculator-spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 122, 0, .25);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: calculator-spin .75s linear infinite;
+    }
+
+    @keyframes calculator-spin {
+      to { transform: rotate(360deg); }
     }
 
     @media (max-width:600px) {
@@ -954,6 +985,10 @@
           <div style="text-align:center; margin:22px 0">
             <button class="cta" id="calculator-button" type="button">Calcular minha economia</button>
           </div>
+          <div class="calculator-status" id="calculator-status" hidden>
+            <span class="calculator-spinner" aria-hidden="true"></span>
+            <span>Smart Encartes está calculando...</span>
+          </div>
           <div class="calculator-results" id="calculator-results" hidden aria-live="polite">
             <div class="calculator-result">
               <span>Tempo no processo manual</span>
@@ -1221,6 +1256,7 @@
       const flyers = document.getElementById('calculator-flyers');
       const items = document.getElementById('calculator-items');
       const button = document.getElementById('calculator-button');
+      const status = document.getElementById('calculator-status');
       const results = document.getElementById('calculator-results');
       const manual = document.getElementById('calculator-manual');
       const saved = document.getElementById('calculator-saved');
@@ -1239,9 +1275,19 @@
         const smartSecondsPerProduct = itemsPerFlyer <= 10 ? 4 : itemsPerFlyer <= 30 ? 6 : 15;
         const smartSeconds = productCount * smartSecondsPerProduct;
 
-        manual.textContent = formatTime(manualSeconds);
-        saved.textContent = formatTime(Math.max(0, manualSeconds - smartSeconds));
-        results.hidden = false;
+        results.hidden = true;
+        status.hidden = false;
+        button.disabled = true;
+        button.textContent = 'Calculando...';
+
+        window.setTimeout(function () {
+          manual.textContent = formatTime(manualSeconds);
+          saved.textContent = formatTime(Math.max(0, manualSeconds - smartSeconds));
+          status.hidden = true;
+          results.hidden = false;
+          button.disabled = false;
+          button.textContent = 'Calcular novamente';
+        }, 800);
       });
     }());
 
